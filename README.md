@@ -14,7 +14,7 @@ Enhance the default Shortcodes of the Genesis Framework with a Shortcode UI powe
 
 ## Description:
 
-Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor via a visuel User Interface powered by the Shortcake plugin. The Genesis default Shortcodes were never easier before!
+Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor via a visual User Interface powered by the Shortcake plugin. The Genesis default Shortcodes were never easier before!
 
 *Backstory:* Since I figured out the Shortcake plugin (aka "Shortcode UI") is a really nice and genius project it was clear I had to do something for Genesis with it. So this is the first result! :-)
 
