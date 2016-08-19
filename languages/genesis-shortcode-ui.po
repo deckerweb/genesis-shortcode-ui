@@ -1,0 +1,443 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Genesis Shortcode UI\n"
+"POT-Creation-Date: 2016-08-19 22:22+0200\n"
+"PO-Revision-Date: 2016-08-19 22:22+0200\n"
+"Last-Translator: David Decker DECKERWEB.de -- http://deckerweb.de/\n"
+"Language-Team: David Decker DECKERWEB.de -- http://deckerweb.de/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: genesis-shortcode-ui.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: genesis-shortcode-ui.php:123
+#, php-format
+msgid ""
+"Sorry, you cannot activate the %1$s plugin unless you have installed the "
+"latest version of the %2$sGenesis Framework%3$s."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: genesis-shortcode-ui.php:124 genesis-shortcode-ui.php:132
+msgid "Genesis Shortcode UI"
+msgstr ""
+
+#: genesis-shortcode-ui.php:132
+msgid "Plugin"
+msgstr ""
+
+#. translators: means position before
+#: genesis-shortcode-ui.php:225
+msgid "before"
+msgstr ""
+
+#. translators: means position after
+#: genesis-shortcode-ui.php:230
+msgid "after"
+msgstr ""
+
+#. translators: 1 = position before/after, 2 = the actual attribute from the Shortcode
+#: genesis-shortcode-ui.php:236
+#, php-format
+msgid "Text/markup to place %1$s the %2$s"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:261
+msgid "Before"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:263
+msgid "After"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:272
+msgid "Footer Copyright"
+msgstr ""
+
+#: genesis-shortcode-ui.php:276
+msgid "Copyright"
+msgstr ""
+
+#: genesis-shortcode-ui.php:282
+msgid "Copyright symbol"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:286
+msgid "First"
+msgstr ""
+
+#: genesis-shortcode-ui.php:292
+msgid ""
+"Text/markup to place between the copyright symbol and the copyright date"
+msgstr ""
+
+#: genesis-shortcode-ui.php:301 genesis-shortcode-ui.php:310
+msgid "copyright"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:319
+msgid "Footer Child Theme Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:329 genesis-shortcode-ui.php:338
+msgid "Child Theme link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:347
+msgid "Footer Genesis Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:351
+msgid "URL"
+msgstr ""
+
+#: genesis-shortcode-ui.php:357
+msgid "URL for Genesis Framework"
+msgstr ""
+
+#: genesis-shortcode-ui.php:366 genesis-shortcode-ui.php:375
+msgid "Genesis Theme link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:384
+msgid "Footer StudioPress Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:394 genesis-shortcode-ui.php:403
+msgid "StudioPress link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:412
+msgid "Footer WordPress Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:422 genesis-shortcode-ui.php:431
+msgid "WordPress link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:440
+msgid "Footer Site Title"
+msgstr ""
+
+#: genesis-shortcode-ui.php:450 genesis-shortcode-ui.php:459
+msgid "Site Title"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:468
+msgid "Footer Home Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:478 genesis-shortcode-ui.php:487
+msgid "Home link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:496
+msgid "Footer Log in/out Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:506 genesis-shortcode-ui.php:515
+msgid "Log in/ out link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:524
+msgid "Post Date"
+msgstr ""
+
+#: genesis-shortcode-ui.php:528 genesis-shortcode-ui.php:574
+#: genesis-shortcode-ui.php:620 genesis-shortcode-ui.php:666
+msgid "Format"
+msgstr ""
+
+#: genesis-shortcode-ui.php:534
+msgid ""
+"The format for the date. Defaults to the date format configured in your "
+"WordPress options."
+msgstr ""
+
+#: genesis-shortcode-ui.php:537 genesis-shortcode-ui.php:583
+#: genesis-shortcode-ui.php:629 genesis-shortcode-ui.php:675
+msgid "Label"
+msgstr ""
+
+#: genesis-shortcode-ui.php:543
+msgid "Text to place before the post date"
+msgstr ""
+
+#: genesis-shortcode-ui.php:552 genesis-shortcode-ui.php:561
+msgid "post date"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:570
+msgid "Post Time"
+msgstr ""
+
+#: genesis-shortcode-ui.php:580
+msgid ""
+"The format for the time. Defaults to the time format configured in your "
+"WordPress options."
+msgstr ""
+
+#: genesis-shortcode-ui.php:589
+msgid "Text to place before the post time"
+msgstr ""
+
+#: genesis-shortcode-ui.php:598 genesis-shortcode-ui.php:607
+msgid "post time"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:616
+msgid "Post Last Modified Date"
+msgstr ""
+
+#: genesis-shortcode-ui.php:626
+msgid ""
+"The format for the last modified date. Defaults to the date format "
+"configured in your WordPress options."
+msgstr ""
+
+#: genesis-shortcode-ui.php:635
+msgid "Text to place before the post last modified date"
+msgstr ""
+
+#: genesis-shortcode-ui.php:644 genesis-shortcode-ui.php:653
+msgid "post last modified date"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:662
+msgid "Post Last Modified Time"
+msgstr ""
+
+#: genesis-shortcode-ui.php:672
+msgid ""
+"The format for the last modified time. Defaults to the time format "
+"configured in your WordPress options."
+msgstr ""
+
+#: genesis-shortcode-ui.php:681
+msgid "Text to place before the post last modified time"
+msgstr ""
+
+#: genesis-shortcode-ui.php:690 genesis-shortcode-ui.php:699
+msgid "post last modified time"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:708
+msgid "Post Author"
+msgstr ""
+
+#: genesis-shortcode-ui.php:718 genesis-shortcode-ui.php:727
+#: genesis-shortcode-ui.php:755
+msgid "post author name"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:736
+msgid "Post Author Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:746
+msgid "post author link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:764
+msgid "Post Author Posts Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:774 genesis-shortcode-ui.php:783
+msgid "post author posts link (archive)"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:792
+msgid "Post Comments"
+msgstr ""
+
+#: genesis-shortcode-ui.php:796
+msgid "Zero Comments"
+msgstr ""
+
+#: genesis-shortcode-ui.php:800
+msgid "Leave a Comment"
+msgstr ""
+
+#: genesis-shortcode-ui.php:802
+msgid "Text to display if zero comments on the post"
+msgstr ""
+
+#: genesis-shortcode-ui.php:806
+msgid "One Comment"
+msgstr ""
+
+#: genesis-shortcode-ui.php:810
+msgid "1 Comment"
+msgstr ""
+
+#: genesis-shortcode-ui.php:812
+msgid "Text to display if one comment on the post"
+msgstr ""
+
+#: genesis-shortcode-ui.php:816
+msgid "More Comments"
+msgstr ""
+
+#: genesis-shortcode-ui.php:820
+msgid "% Comments"
+msgstr ""
+
+#: genesis-shortcode-ui.php:822
+msgid "Text to display if more than one comment on the post"
+msgstr ""
+
+#: genesis-shortcode-ui.php:826
+msgid "Hide if off"
+msgstr ""
+
+#: genesis-shortcode-ui.php:830
+msgid "enabled"
+msgstr ""
+
+#: genesis-shortcode-ui.php:831
+msgid "disabled"
+msgstr ""
+
+#: genesis-shortcode-ui.php:833
+msgid "Enable the comment link even if comments are off"
+msgstr ""
+
+#: genesis-shortcode-ui.php:843 genesis-shortcode-ui.php:852
+msgid "post comment link"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:861
+msgid "Post Tags"
+msgstr ""
+
+#: genesis-shortcode-ui.php:865 genesis-shortcode-ui.php:903
+#: genesis-shortcode-ui.php:950
+msgid "Separator"
+msgstr ""
+
+#: genesis-shortcode-ui.php:871
+msgid "Separator between post tags"
+msgstr ""
+
+#: genesis-shortcode-ui.php:879 genesis-shortcode-ui.php:963
+msgid "Tagged With: "
+msgstr ""
+
+#: genesis-shortcode-ui.php:881 genesis-shortcode-ui.php:890
+msgid "tag list"
+msgstr ""
+
+#: genesis-shortcode-ui.php:881
+msgid "Default \"Tagged With: \""
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:899
+msgid "Post Categories"
+msgstr ""
+
+#: genesis-shortcode-ui.php:909
+msgid "Separator between post categories"
+msgstr ""
+
+#: genesis-shortcode-ui.php:917
+msgid "Filed Under: "
+msgstr ""
+
+#: genesis-shortcode-ui.php:919 genesis-shortcode-ui.php:928
+msgid "post category list"
+msgstr ""
+
+#: genesis-shortcode-ui.php:919 genesis-shortcode-ui.php:965
+msgid "Default \"Filed Under: \""
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:937
+msgid "Post Terms"
+msgstr ""
+
+#: genesis-shortcode-ui.php:941
+msgid "Taxonomy"
+msgstr ""
+
+#: genesis-shortcode-ui.php:947
+msgid "Which taxonomy to use. Default \"category\""
+msgstr ""
+
+#: genesis-shortcode-ui.php:956
+msgid "Separator between the terms"
+msgstr ""
+
+#: genesis-shortcode-ui.php:965 genesis-shortcode-ui.php:974
+msgid "post terms list"
+msgstr ""
+
+#. translators: Attribute name (title)
+#: genesis-shortcode-ui.php:983
+msgid "Post Edit"
+msgstr ""
+
+#: genesis-shortcode-ui.php:987
+msgid "Link"
+msgstr ""
+
+#: genesis-shortcode-ui.php:991
+msgid "(Edit)"
+msgstr ""
+
+#: genesis-shortcode-ui.php:993
+msgid "Text for edit link. Default \"(Edit)\""
+msgstr ""
+
+#: genesis-shortcode-ui.php:1002 genesis-shortcode-ui.php:1011
+msgid "edit post link"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/deckerweb/genesis-shortcode-ui"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Enhance the default Shortcodes of the Genesis Framework with a Shortcode UI "
+"powered by the Shortcake plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "David Decker - DECKERWEB"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://deckerweb.de/"
+msgstr ""
