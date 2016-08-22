@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Set filter for plugin's languages directory.
  *
- * @since  1.0.0
+ * @since  2016.08.17
  *
  * @return string Path to plugin's languages directory.
  */
@@ -95,7 +95,7 @@ register_activation_hook( __FILE__, 'ddw_gsui_activation_check' );
 /**
  * Checks for activated Genesis Framework before allowing plugin to activate.
  *
- * @since 1.0.0
+ * @since 2016.08.17
  *
  * @uses  load_plugin_textdomain() To load default translations from plugin folder.
  * @uses  ddw_gfpe_plugin_lang_dir() To get filterable path to plugin's languages directory.
