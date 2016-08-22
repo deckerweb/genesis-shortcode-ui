@@ -95,6 +95,7 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
 ## Plugin Filters - 2) Examples
 
 **Exclude one or more Shortcode tags from the UI**
+
 To exclude one of the Genesis default Shortcodes from appearing in the UI, just use this code snippet from **[this Gist https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345](https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345)**
 
 Just uncommend all those lines with the Shortcode tags you don't want to see in the UI.
@@ -105,7 +106,9 @@ In the filter `gsui_filter_genesis_shortcodes_ui_args` place the Genesis Shortco
 $genesis_shortcodes[ 'sp_footer_studiopress_link' ] = 0;
 ```
 
+
 **Change the overview logo for a certain Shortcode in the UI**
+
 To change the logo icon/ image in the UI overview, let's say, to a Dashicon from WordPress itself -- just use the code snippet from **[this Gist https://gist.github.com/deckerweb/eeaaa76d469ff0205878f7d2bd6bf21f](https://gist.github.com/deckerweb/eeaaa76d469ff0205878f7d2bd6bf21f)**
 
 The same principle applies for all other Dashicon icons and Shortcode tags as well.
@@ -132,12 +135,12 @@ $genesis_shortcodes[ 'sp_post_tags' ][ 'listItemImage' ] = ddw_gsui_genesis_logo
 ```
 --> will output your own image file
 
-Tips: Use transparent .png with a size of 120px x 120px - bigger size might be fine, it gets scaled by Shortcake CSS anyway... :)
+Tips: Use transparent .png with a size of 120x120px - bigger size might be fine, it gets scaled by Shortcake CSS anyway... :)
 
 
 **Where to put these code snippets?**
 * In a custom plugin/ functionality plugin
-* OR in a snippets manager like ["Code Snippets" plugin](https://wordpress.org/plugins/code-snippets/) or "Toolbox" plugin
+* OR in a snippets manager like ["Code Snippets" plugin](https://wordpress.org/plugins/code-snippets/)
 * OR in your Genesis Child Theme's `functions.php` file or in a other theme specific "functions" file.
 
 
