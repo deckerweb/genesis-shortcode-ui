@@ -25,7 +25,7 @@
 <ul>
 <li>Contributors: <a href="https://github.com/deckerweb">David Decker</a>, <a href="https://github.com/deckerweb/genesis-shortcode-ui/graphs/contributors">contributors</a>
 </li>
-<li>Tags: shortcode, updated, last updated, date, time, item, post type, custom post types, post, element</li>
+<li>Tags: genesis, genesiswp, shortcode, shortcodes, shortcake, ui, visual, visual editor, footer, post, updated, last updated, date, time, item, post, element, link, studiopress</li>
 <li>Requires at least: 4.1.0</li>
 <li>Tested up to: 4.6.x</li>
 <li>Stable tag: master</li>
@@ -64,6 +64,7 @@
 <li><a href="https://wordpress.org/download/">WordPress v4.1.0 or higher</a></li>
 <li><a href="http://deckerweb.de/go/genesis/">Genesis Framework v2.3.1 or higher</a></li>
 <li><a href="https://wordpress.org/plugins/shortcode-ui/screenshots/">"Shortcake" plugin (Shortcode UI) v0.6.2 or higher</a></li>
+<li><em>PLEASE: For security and best support, always use the latest stable versions of WordPress, Genesis and plugins!</em></li>
 </ul>
 
 <p><strong>Manual Upload</strong></p>
@@ -71,7 +72,7 @@
 <ul>
 <li>Download current .zip archive from master branch here, URL: <a href="https://github.com/deckerweb/genesis-shortcode-ui/archive/master.zip">https://github.com/deckerweb/genesis-shortcode-ui/archive/master.zip</a>
 </li>
-<li>Unzip the package, then <strong>rename the folder to <code>genesis-shortcode-ui</code></strong>, then upload renamed folder via FTP to your WordPress plugin directory</li>
+<li>Unzip the package, then <strong>rename the folder to <code>genesis-shortcode-ui</code></strong>, then upload renamed folder via SFTP/ FTP to your WordPress plugin directory</li>
 <li>Activate the plugin</li>
 </ul>
 
@@ -117,12 +118,31 @@
 </ul>
 
 <h2>
-<a id="usage---3-limitations" class="anchor" href="#usage---3-limitations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage - 3) Limitations:</h2>
+<a id="usage---3-limitations-info-etc" class="anchor" href="#usage---3-limitations-info-etc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage - 3) Limitations, Info etc.:</h2>
 
 <ul>
-<li>The "Back to Top" Shortcode from Genesis was left out, intentionally, as it makes no sense to use this XHTML/ HTML 4 feature any longer!</li>
-<li>Also, the attributes <code>relative_depth</code> from the Shortcodes "Post Date" and "Post Modified Date" were left out as they make not much sense in an UI aimed at end users/ beginner users.</li>
-<li>Otherwise, the originally "hidden" attribute <code>url</code> attribute in Shortcode "Footer Genesis Link" was included as it makes total sense especially for affiliate links! :)</li>
+<li>
+<em>Limitation:</em> For some attributes that get entered via the Shortcode UI, the whitespace gets trimmed. This is the current behavior (or issue?) of the <em>Shortcake</em> plugin
+
+<ul>
+<li>However, this only affects the Shortcode preview within the editor</li>
+<li>The Shortcode attributes are inserted properly, including spaces/ whitespace!</li>
+<li>And, most importantly, the rendering on the frontend of your site will also include space/ whitespace you've entered in the UI!</li>
+<li><em>Note: I might discuss this with the Shortcake team if this could be improved</em></li>
+</ul>
+</li>
+<li>
+<em>Limitation:</em> Currently, the Shortcake plugin displays no preview Icon or Image for one-line-Shortcodes in the Editor.
+
+<ul>
+<li>It's only a visual thing: the rendered view is still clickable and editable for the whole line in the Editor! (In the same way as for built-in WordPress Shortcodes like "gallery".)</li>
+<li><em>Note: I might discuss this as well with the Shortcake team if this could be improved</em></li>
+</ul>
+</li>
+<li>
+<em>Limitation:</em> The "Back to Top" Shortcode from Genesis was left out, intentionally, as it makes no sense to use this old XHTML/ HTML 4 feature any longer!</li>
+<li>
+<em>Bonus:</em> Otherwise, the originally "hidden" <code>url</code> attribute in Shortcode "Footer Genesis Link" was included as it makes total sense especially for affiliate links! :)</li>
 </ul>
 
 <h2>
@@ -140,7 +160,9 @@
 </ul>
 
 <h2>
-<a id="plugin-filters---2-example" class="anchor" href="#plugin-filters---2-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugin Filters - 2) Example</h2>
+<a id="plugin-filters---2-examples" class="anchor" href="#plugin-filters---2-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugin Filters - 2) Examples</h2>
+
+<p><strong>Exclude one or more Shortcode tags from the UI</strong></p>
 
 <p>To exclude one of the Genesis default Shortcodes from appearing in the UI, just use this code snippet from <strong><a href="https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345">this Gist https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345</a></strong></p>
 
@@ -151,8 +173,51 @@
 <pre><code>$genesis_shortcodes[ 'sp_footer_studiopress_link' ] = 0;
 </code></pre>
 
+<p><strong>Change the overview logo for a certain Shortcode in the UI</strong></p>
+
+<p>To change the logo icon/ image in the UI overview, let's say, to a Dashicon from WordPress itself -- just use the code snippet from <strong><a href="https://gist.github.com/deckerweb/eeaaa76d469ff0205878f7d2bd6bf21f">this Gist https://gist.github.com/deckerweb/eeaaa76d469ff0205878f7d2bd6bf21f</a></strong></p>
+
+<p>The same principle applies for all other Dashicon icons and Shortcode tags as well.</p>
+
+<p>If you want to use my built-in icon types, choose one of the following:</p>
+
+<pre><code>$genesis_shortcodes[ 'sp_footer_site_title' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'post' );
+</code></pre>
+
+<p>--&gt; will output my "post"-based icon</p>
+
+<pre><code>$genesis_shortcodes[ 'sp_post_date' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'footer' );
+</code></pre>
+
+<p>--&gt; will output my "footer"-based icon</p>
+
+<pre><code>$genesis_shortcodes[ 'sp_post_time' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'default' );
+</code></pre>
+
+<p>--&gt; will output my "default"-based icon (Genesis)</p>
+
+<p>And if you want to change to your own custom image path, simply change this line to this:</p>
+
+<pre><code>$genesis_shortcodes[ 'sp_post_tags' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'custom', '', 'http://example.com/path-to-your-image-file.png' );
+</code></pre>
+
+<p>--&gt; will output your own image file</p>
+
+<p>Tips: Use transparent .png with a size of 120x120px - bigger size might be fine, it gets scaled by Shortcake CSS anyway... :)</p>
+
+<p><strong>Where to put these code snippets?</strong></p>
+
+<ul>
+<li>In a custom plugin/ functionality plugin</li>
+<li>OR in a snippets manager like <a href="https://wordpress.org/plugins/code-snippets/">"Code Snippets" plugin</a>
+</li>
+<li>OR in your Genesis Child Theme's <code>functions.php</code> file or in a other theme specific "functions" file.</li>
+</ul>
+
 <h2>
 <a id="translations" class="anchor" href="#translations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Translations:</h2>
+
+<p>= Localization &amp; Internationalizaton:</p>
 
 <ul>
 <li>Used textdomain: <code>genesis-shortcode-ui</code>
@@ -164,13 +229,21 @@
 <li>
 <em>Recommended:</em> Global WordPress lang dir path for translations: <code>wp-content/languages/plugins/genesis-shortcode-ui-de_DE.mo</code> ---&gt; <em>NOTE: if this file/path exists it will be loaded at higher priority than the plugin path! This is the recommended path &amp; way to store your translations as it is update-safe and allows for custom translations!</em>
 </li>
-<li>Recommended translation tools: <em>Poedit Pro v1.8+</em> or <em>WordPress Plugin "Loco Translate"</em> or <em>your IDE/ Code Editor</em> or <em>old WordPress "Codestyling Localization"</em> (for the brave who know what they are doing :) )</li>
+<li>Recommended translation tools: <em>Poedit Pro v1.8+</em> or <em>WordPress Plugin "Loco Translate"</em> or <em>your IDE/ Code Editor</em> or <em>old WordPress plugin "Codestyling Localization"</em> (for the brave who know what they are doing :) )</li>
 </ul>
 
 <h2>
-<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changelog:</h2>
+<a id="changelog---version-history" class="anchor" href="#changelog---version-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changelog - Version History:</h2>
 
-<p>See plugin file <a href="https://github.com/deckerweb/genesis-shortcode-ui/blob/master/CHANGES.md">CHANGES.md here</a></p>
+<p>--&gt; See plugin file <a href="https://github.com/deckerweb/genesis-shortcode-ui/blob/master/CHANGES.md">CHANGES.md here</a></p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Todo:</h2>
+
+<ul>
+<li>[x] Enhance Readme documentation and code snippets</li>
+<li>[ ] Add screenshots</li>
+</ul>
 
 <p>Copyright (c) 2016 David Decker - DECKERWEB.de</p>
 
