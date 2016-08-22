@@ -148,7 +148,7 @@ add_action( 'init', 'ddw_gsui_prepare_shortcode_ui' );
  */
 function ddw_gsui_prepare_shortcode_ui() {
 
-	/** Check if Shortcake exists */
+	/** Check if Shortcake & Genesis exist */
     if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) && ! function_exists( 'genesis_html5' ) ) {
 
         return;
@@ -179,7 +179,7 @@ function ddw_gsui_genesis_label() {
 
 	$string_genesis = apply_filters(
 		'gsui_filter_genesis_label',
-		esc_html( 'Genesis', 'genesis-shortcode-ui' ) . ': '
+		esc_html__( 'Genesis', 'genesis-shortcode-ui' ) . ': '
 	);
 
 	return $string_genesis;
