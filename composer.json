@@ -1,0 +1,23 @@
+{
+  "name": "deckerweb/genesis-shortcode-ui",
+  "description": "WordPress plugin that enhances the default Shortcodes of the Genesis Framework with a Shortcode UI powered by the Shortcake plugin.",
+  "keywords": ["genesis", "shortcode", "visual", "editor"],
+  "type": "wordpress-plugin",
+  "homepage": "https://github.com/deckerweb/genesis-shortcode-ui",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "David Decker",
+      "homepage": "http://deckerweb.de/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/deckerweb/genesis-shortcode-ui/issues",
+    "source": "https://github.com/deckerweb/genesis-shortcode-ui"
+  },
+  "require": {
+    "composer/installers": "^1.0",
+    "php": ">=5.3"
+  }
+}
