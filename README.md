@@ -1,7 +1,7 @@
 # Genesis Shortcode UI
 
 * Contributors: [David Decker](https://github.com/deckerweb), [contributors](https://github.com/deckerweb/genesis-shortcode-ui/graphs/contributors)
-* Tags: shortcode, updated, last updated, date, time, item, post type, custom post types, post, element
+* Tags: genesis, genesiswp, shortcode, shortcodes, shortcake, ui, visual, visual editor, footer, post, updated, last updated, date, time, item, post, element, link, studiopress
 * Requires at least: 4.1.0
 * Tested up to: 4.6.x
 * Stable tag: master
@@ -33,10 +33,11 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
 * [WordPress v4.1.0 or higher](https://wordpress.org/download/)
 * [Genesis Framework v2.3.1 or higher](http://deckerweb.de/go/genesis/)
 * ["Shortcake" plugin (Shortcode UI) v0.6.2 or higher](https://wordpress.org/plugins/shortcode-ui/screenshots/)
+* *PLEASE: For security and best support, always use the latest stable versions of WordPress, Genesis and plugins!*
 
 **Manual Upload**
 * Download current .zip archive from master branch here, URL: [https://github.com/deckerweb/genesis-shortcode-ui/archive/master.zip](https://github.com/deckerweb/genesis-shortcode-ui/archive/master.zip)
-* Unzip the package, then **rename the folder to `genesis-shortcode-ui`**, then upload renamed folder via FTP to your WordPress plugin directory
+* Unzip the package, then **rename the folder to `genesis-shortcode-ui`**, then upload renamed folder via SFTP/ FTP to your WordPress plugin directory
 * Activate the plugin
 
 **Via "GitHub Updater" Plugin** *(recommended!)*
@@ -69,11 +70,18 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
 * Example Widget plugin: ["Visual Text Editor" (via WordPress.org)](https://wordpress.org/plugins/visual-text-editor/screenshots/)
 
 
-## Usage - 3) Limitations:
+## Usage - 3) Limitations, Info etc.:
 
-* The "Back to Top" Shortcode from Genesis was left out, intentionally, as it makes no sense to use this XHTML/ HTML 4 feature any longer!
-* Also, the attributes `relative_depth` from the Shortcodes "Post Date" and "Post Modified Date" were left out as they make not much sense in an UI aimed at end users/ beginner users.
-* Otherwise, the originally "hidden" attribute `url` attribute in Shortcode "Footer Genesis Link" was included as it makes total sense especially for affiliate links! :)
+* *Limitation:* For some attributes that get entered via the Shortcode UI, the whitespace gets trimmed. This is the current behavior (or issue?) of the *Shortcake* plugin
+ * However, this only affects the Shortcode preview within the editor
+ * The Shortcode attributes are inserted properly, including spaces/ whitespace!
+ * And, most importantly, the rendering on the frontend of your site will also include space/ whitespace you've entered in the UI!
+ * *Note: I might discuss this with the Shortcake team if this could be improved*
+* *Limitation:* Currently, the Shortcake plugin displays no preview Icon or Image for one-line-Shortcodes in the Editor.
+ * It's only a visual thing: the rendered view is still clickable and editable for the whole line in the Editor! (In the same way as for built-in WordPress Shortcodes like "gallery".)
+ * *Note: I might discuss this as well with the Shortcake team if this could be improved*
+* *Limitation:* The "Back to Top" Shortcode from Genesis was left out, intentionally, as it makes no sense to use this old XHTML/ HTML 4 feature any longer!
+* *Bonus:* Otherwise, the originally "hidden" `url` attribute in Shortcode "Footer Genesis Link" was included as it makes total sense especially for affiliate links! :)
 
 
 ## Plugin Filters (Developers) - 1) Basics:
@@ -84,8 +92,9 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
 * `gsui_filter_genesis_shortcodes_ui_args` --> filter arguments for any/all Shortcodes for Shortcode UI (Shortcake plugin)
 
 
-## Plugin Filters - 2) Example
+## Plugin Filters - 2) Examples
 
+**Exclude one or more Shortcode tags from the UI**
 To exclude one of the Genesis default Shortcodes from appearing in the UI, just use this code snippet from **[this Gist https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345](https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345)**
 
 Just uncommend all those lines with the Shortcode tags you don't want to see in the UI.
@@ -96,19 +105,62 @@ In the filter `gsui_filter_genesis_shortcodes_ui_args` place the Genesis Shortco
 $genesis_shortcodes[ 'sp_footer_studiopress_link' ] = 0;
 ```
 
+**Change the overview logo for a certain Shortcode in the UI**
+To change the logo icon/ image in the UI overview, let's say, to a Dashicon from WordPress itself -- just use the code snippet from **[this Gist https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345](https://gist.github.com/deckerweb/65bf8c1c38f95cffcb9e2e2dda344345)**
+
+The same principle applies for all other Dashicon icons and Shortcode tags as well.
+
+If you want to use my built-in icon types, choose one of the following:
+```
+$genesis_shortcodes[ 'sp_footer_site_title' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'post' );
+```
+--> will output my "post"-based icon
+
+```
+$genesis_shortcodes[ 'sp_post_date' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'footer' );
+```
+--> will output my "footer"-based icon
+
+```
+$genesis_shortcodes[ 'sp_post_time' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'default' );
+```
+--> will output my "default"-based icon (Genesis)
+
+And if you want to change to your own custom image path, simply change this line to this:
+```
+$genesis_shortcodes[ 'sp_post_tags' ][ 'listItemImage' ] = ddw_gsui_genesis_logo( 'custom', '', 'http://example.com/path-to-your-image-file.png' );
+```
+--> will output your own image file
+
+Tips: Use transparent .png with a size of 120px x 120px - bigger size might be fine, it gets scaled by Shortcake CSS anyway... :)
+
+
+**Where to put these code snippets?**
+* In a custom plugin/ functionality plugin
+* OR in a snippets manager like "Code Snippets" plugin or "Toolbox" plugin
+* OR in your Genesis Child Theme's `functions.php` file or in a other theme specific "functions" file.
+
 
 ## Translations:
+= Localization & Internationalizaton:
 
 * Used textdomain: `genesis-shortcode-ui`
 * Default `.pot` file included
 * German translations included (`de_DE`)
 * Plugin's own path for translations: `wp-content/plugins/genesis-shortcode-ui/languages/genesis-shortcode-ui-de_DE.mo`
 * *Recommended:* Global WordPress lang dir path for translations: `wp-content/languages/plugins/genesis-shortcode-ui-de_DE.mo` ---> *NOTE: if this file/path exists it will be loaded at higher priority than the plugin path! This is the recommended path & way to store your translations as it is update-safe and allows for custom translations!*
-* Recommended translation tools: *Poedit Pro v1.8+* or *WordPress Plugin "Loco Translate"* or *your IDE/ Code Editor* or *old WordPress "Codestyling Localization"* (for the brave who know what they are doing :) )
+* Recommended translation tools: *Poedit Pro v1.8+* or *WordPress Plugin "Loco Translate"* or *your IDE/ Code Editor* or *old WordPress plugin "Codestyling Localization"* (for the brave who know what they are doing :) )
 
 
-## Changelog:
+## Changelog - Version History:
 
-See plugin file [CHANGES.md here](https://github.com/deckerweb/genesis-shortcode-ui/blob/master/CHANGES.md)
+--> See plugin file [CHANGES.md here](https://github.com/deckerweb/genesis-shortcode-ui/blob/master/CHANGES.md)
+
+
+## Todo:
+
+* [x] Enhance Readme documentation and code snippets
+* [ ] Add screenshots
+
 
 Copyright (c) 2016 David Decker - DECKERWEB.de

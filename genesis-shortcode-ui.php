@@ -11,7 +11,7 @@
  * Plugin Name:       Genesis Shortcode UI
  * Plugin URI:        https://github.com/deckerweb/genesis-shortcode-ui
  * Description:       Enhance the default Shortcodes of the Genesis Framework with a Shortcode UI powered by the Shortcake plugin.
- * Version:           2016.08.19
+ * Version:           2016.08.22
  * Author:            David Decker - DECKERWEB
  * Author URI:        http://deckerweb.de/
  * License:           GPL-2.0+
@@ -28,8 +28,10 @@
  * Exit if called directly.
  */
 if ( ! defined( 'WPINC' ) ) {
+
 	die;
-}
+
+}  // end if
 
 
 /**
@@ -147,7 +149,7 @@ add_action( 'init', 'ddw_gsui_prepare_shortcode_ui' );
 function ddw_gsui_prepare_shortcode_ui() {
 
 	/** Check if Shortcake exists */
-    if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+    if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) && ! function_exists( 'genesis_html5' ) ) {
 
         return;
 
@@ -188,18 +190,42 @@ function ddw_gsui_genesis_label() {
 /**
  * Set string/path for Genesis logo for reuse.
  *
- * @since 2016.08.18
+ * @since  2016.08.18
  *
- * @return string String/path of Genesis logo
+ * @param  string $type Type of logo image/ icon to use
+ * @param  string $dashicon Class/ string for a certain Dashicon font icon
+ * @param  string $custom_path URL to custom image.
+ *
+ * @return string String/path of Genesis logo/ icon/ custom image.
  */
-function ddw_gsui_genesis_logo() {
+function ddw_gsui_genesis_logo( $type = 'default', $dashicon = '', $custom_path = '' ) {
 
-	$string_genesis_logo = apply_filters(
+	$type = strtolower( esc_attr( $type ) );
+
+	$string_genesis_logo = '';
+
+	if ( in_array( $type, array( 'footer', 'post', 'default' ) ) ) {
+
+		$string_genesis_logo = apply_filters(
+			'gsui_filter_genesis_logo_image',
+			'<img src="' . plugins_url( 'genesis-shortcode-ui/images/genesis-logo-' . $type . '.png', dirname( __FILE__ ) ) . '" />'
+		);
+
+	} elseif ( 'dashicon' === $type ) {
+
+		$string_genesis_logo = strtolower( esc_attr( $dashicon ) );
+
+	} elseif ( 'custom' === $type ) {
+
+		$string_genesis_logo = '<img src="' . esc_url( $custom_path ) . '" />';
+
+	}  // end if
+
+	/** Return filterable output: image path or Dashicon class */
+	return apply_filters(
 		'gsui_filter_genesis_logo',
-		'<img src="' . plugins_url( 'genesis-shortcode-ui/images/genesis-logo-v2.png', dirname( __FILE__ ) ) . '" />'
+		$string_genesis_logo
 	);
-
-	return $string_genesis_logo;
 
 }  // end function
 
@@ -209,8 +235,8 @@ function ddw_gsui_genesis_logo() {
  *
  * @since  2016.08.19
  *
- * @param  string $string
- * @param  string $position
+ * @param  string $string String of element for Shortcode attribute
+ * @param  string $position Position of the string
  *
  * @return string Label for the before string.
  */
@@ -258,9 +284,14 @@ function ddw_gsui_string_helper( $string = '', $position = 'before' ) {
 function ddw_gsui_shortcode_tags() {
 
 	/* translators: Attribute name (title) */
-	$string_before = esc_html__( 'Before', 'genesis-shortcode-ui' );
+	$string_before         = esc_html__( 'Before', 'genesis-shortcode-ui' );
 	/* translators: Attribute name (title) */
-	$string_after  = esc_html__( 'After', 'genesis-shortcode-ui' );
+	$string_after          = esc_html__( 'After', 'genesis-shortcode-ui' );
+	$string_relative_depth = sprintf(
+		esc_html__( 'How many date/ time segments are shown if using the value %1$s for the date format attribute %2$s', 'genesis-shortcode-ui' ) . ' <a href="http://www.billerickson.net/genesis-relative-date-length/" target="_blank">' . esc_html__( 'More info on this', 'genesis-shortcode-ui' ) . '</a>',
+		'<code>relative</code>',
+		'(<code>format="relative"</code>)'
+	);
 
 	/** All needed args for the Shortcake plugin in one big array :) */
 	$genesis_shortcodes = array(
@@ -270,7 +301,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_copyright',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer Copyright', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Copyright', 'genesis-shortcode-ui' ),
@@ -317,7 +348,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_childtheme_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer Child Theme Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -345,7 +376,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_genesis_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer Genesis Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'URL', 'genesis-shortcode-ui' ),
@@ -382,14 +413,15 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_studiopress_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer StudioPress Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
 					'attr'  => 'before',
 					'type'  => 'text',
 					'meta'  => array(
-						'placeholder' => 'by',
+						/* translators: Shortcode "StudioPress Link" default value/ placeholder for "before" attribute */
+						'placeholder' => esc_html__( 'by', 'genesis-shortcode-ui' ),
 					),
 					'description' => ddw_gsui_string_helper( __( 'StudioPress link', 'genesis-shortcode-ui' ), 'before' ),
 				),
@@ -410,7 +442,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_wordpress_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer WordPress Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -438,7 +470,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_site_title',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer Site Title', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'default' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -466,7 +498,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_home_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer Home Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'default' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -494,7 +526,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'footer_loginout_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Footer Log in/out Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'default' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -522,7 +554,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_date',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Date', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
@@ -532,6 +564,15 @@ function ddw_gsui_shortcode_tags() {
 						'placeholder' => get_option( 'date_format' ),
 					),
 					'description' => esc_html__( 'The format for the date. Defaults to the date format configured in your WordPress options.', 'genesis-shortcode-ui' ),
+				),
+				array(
+					'label' => esc_html__( 'Relative Depth (date segments)', 'genesis-shortcode-ui' ),
+					'attr'  => 'relative_depth',
+					'type'  => 'number',
+					'meta'  => array(
+						'placeholder' => 2,
+					),
+					'description' => $string_relative_depth,
 				),
 				array(
 					'label' => esc_html__( 'Label', 'genesis-shortcode-ui' ),
@@ -568,7 +609,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_time',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Time', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
@@ -614,7 +655,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_modified_date',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Last Modified Date', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
@@ -624,6 +665,15 @@ function ddw_gsui_shortcode_tags() {
 						'placeholder' => get_option( 'date_format' ),
 					),
 					'description' => esc_html__( 'The format for the last modified date. Defaults to the date format configured in your WordPress options.', 'genesis-shortcode-ui' ),
+				),
+				array(
+					'label' => esc_html__( 'Relative Depth (date segments)', 'genesis-shortcode-ui' ),
+					'attr'  => 'relative_depth',
+					'type'  => 'number',
+					'meta'  => array(
+						'placeholder' => 2,
+					),
+					'description' => $string_relative_depth,
 				),
 				array(
 					'label' => esc_html__( 'Label', 'genesis-shortcode-ui' ),
@@ -660,7 +710,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_modified_time',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Last Modified Time', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
@@ -706,7 +756,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_author',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Author', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -734,7 +784,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_author_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Author Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -762,7 +812,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_author_posts_link',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Author Posts Link', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => $string_before,
@@ -790,7 +840,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_comments',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Comments', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Zero Comments', 'genesis-shortcode-ui' ),
@@ -859,7 +909,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_tags',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Tags', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
@@ -897,7 +947,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_categories',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Categories', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
@@ -935,7 +985,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_terms',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Terms', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Taxonomy', 'genesis-shortcode-ui' ),
@@ -981,7 +1031,7 @@ function ddw_gsui_shortcode_tags() {
 			'tag'           => 'post_edit',
 			/* translators: Attribute name (title) */
 			'label'         => ddw_gsui_genesis_label() . esc_html__( 'Post Edit', 'genesis-shortcode-ui' ),
-			'listItemImage' => ddw_gsui_genesis_logo(),
+			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
 					'label' => esc_html__( 'Link', 'genesis-shortcode-ui' ),
