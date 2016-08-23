@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Genesis Shortcode UI\n"
-"POT-Creation-Date: 2016-08-22 16:11+0200\n"
-"PO-Revision-Date: 2016-08-22 16:11+0200\n"
+"POT-Creation-Date: 2016-08-23 16:55+0200\n"
+"PO-Revision-Date: 2016-08-23 16:55+0200\n"
 "Last-Translator: David Decker DECKERWEB.de -- http://deckerweb.de/\n"
 "Language-Team: David Decker DECKERWEB.de -- http://deckerweb.de/\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: genesis-shortcode-ui.php:125
+#: genesis-shortcode-ui.php:123
 #, php-format
 msgid ""
 "Sorry, you cannot activate the %1$s plugin unless you have installed the "
@@ -28,419 +28,423 @@ msgid ""
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: genesis-shortcode-ui.php:126 genesis-shortcode-ui.php:134
+#: genesis-shortcode-ui.php:124 genesis-shortcode-ui.php:132
 msgid "Genesis Shortcode UI"
 msgstr ""
 
-#: genesis-shortcode-ui.php:134
+#: genesis-shortcode-ui.php:132
 msgid "Plugin"
 msgstr ""
 
+#: genesis-shortcode-ui.php:182
+msgid "Genesis"
+msgstr ""
+
 #. translators: means position before
-#: genesis-shortcode-ui.php:251
+#: genesis-shortcode-ui.php:252
 msgid "before"
 msgstr ""
 
 #. translators: means position after
-#: genesis-shortcode-ui.php:256
+#: genesis-shortcode-ui.php:257
 msgid "after"
 msgstr ""
 
 #. translators: 1 = position before/after, 2 = the actual attribute from the Shortcode
-#: genesis-shortcode-ui.php:262
+#: genesis-shortcode-ui.php:263
 #, php-format
 msgid "Text/markup to place %1$s the %2$s"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:287
+#: genesis-shortcode-ui.php:333
 msgid "Before"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:289
+#: genesis-shortcode-ui.php:335
 msgid "After"
 msgstr ""
 
-#: genesis-shortcode-ui.php:291
+#: genesis-shortcode-ui.php:337
 #, php-format
 msgid ""
 "How many date/ time segments are shown if using the value %1$s for the date "
 "format attribute %2$s"
 msgstr ""
 
-#: genesis-shortcode-ui.php:291
+#: genesis-shortcode-ui.php:337
 msgid "More info on this"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:303
+#: genesis-shortcode-ui.php:349
 msgid "Footer Copyright"
 msgstr ""
 
-#: genesis-shortcode-ui.php:307
+#: genesis-shortcode-ui.php:353
 msgid "Copyright"
 msgstr ""
 
-#: genesis-shortcode-ui.php:313
+#: genesis-shortcode-ui.php:359
 msgid "Copyright symbol"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:317
+#: genesis-shortcode-ui.php:363
 msgid "First"
 msgstr ""
 
-#: genesis-shortcode-ui.php:323
+#: genesis-shortcode-ui.php:369
 msgid ""
 "Text/markup to place between the copyright symbol and the copyright date"
 msgstr ""
 
-#: genesis-shortcode-ui.php:332 genesis-shortcode-ui.php:341
+#: genesis-shortcode-ui.php:378 genesis-shortcode-ui.php:387
 msgid "copyright"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:350
+#: genesis-shortcode-ui.php:396
 msgid "Footer Child Theme Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:360 genesis-shortcode-ui.php:369
+#: genesis-shortcode-ui.php:406 genesis-shortcode-ui.php:415
 msgid "Child Theme link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:378
+#: genesis-shortcode-ui.php:424
 msgid "Footer Genesis Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:382
+#: genesis-shortcode-ui.php:428
 msgid "URL"
 msgstr ""
 
-#: genesis-shortcode-ui.php:388
+#: genesis-shortcode-ui.php:434
 msgid "URL for Genesis Framework"
 msgstr ""
 
-#: genesis-shortcode-ui.php:397 genesis-shortcode-ui.php:406
+#: genesis-shortcode-ui.php:443 genesis-shortcode-ui.php:452
 msgid "Genesis Theme link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:415
+#: genesis-shortcode-ui.php:461
 msgid "Footer StudioPress Link"
 msgstr ""
 
 #. translators: Shortcode "StudioPress Link" default value/ placeholder for "before" attribute
-#: genesis-shortcode-ui.php:424
+#: genesis-shortcode-ui.php:470
 msgid "by"
 msgstr ""
 
-#: genesis-shortcode-ui.php:426 genesis-shortcode-ui.php:435
+#: genesis-shortcode-ui.php:472 genesis-shortcode-ui.php:481
 msgid "StudioPress link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:444
+#: genesis-shortcode-ui.php:490
 msgid "Footer WordPress Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:454 genesis-shortcode-ui.php:463
+#: genesis-shortcode-ui.php:500 genesis-shortcode-ui.php:509
 msgid "WordPress link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:472
+#: genesis-shortcode-ui.php:518
 msgid "Footer Site Title"
 msgstr ""
 
-#: genesis-shortcode-ui.php:482 genesis-shortcode-ui.php:491
+#: genesis-shortcode-ui.php:528 genesis-shortcode-ui.php:537
 msgid "Site Title"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:500
+#: genesis-shortcode-ui.php:546
 msgid "Footer Home Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:510 genesis-shortcode-ui.php:519
+#: genesis-shortcode-ui.php:556 genesis-shortcode-ui.php:565
 msgid "Home link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:528
+#: genesis-shortcode-ui.php:574
 msgid "Footer Log in/out Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:538 genesis-shortcode-ui.php:547
+#: genesis-shortcode-ui.php:584 genesis-shortcode-ui.php:593
 msgid "Log in/ out link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:556
+#: genesis-shortcode-ui.php:602
 msgid "Post Date"
 msgstr ""
 
-#: genesis-shortcode-ui.php:560 genesis-shortcode-ui.php:615
-#: genesis-shortcode-ui.php:661 genesis-shortcode-ui.php:716
+#: genesis-shortcode-ui.php:606 genesis-shortcode-ui.php:662
+#: genesis-shortcode-ui.php:708 genesis-shortcode-ui.php:764
 msgid "Format"
 msgstr ""
 
-#: genesis-shortcode-ui.php:566
+#: genesis-shortcode-ui.php:612
 msgid ""
 "The format for the date. Defaults to the date format configured in your "
 "WordPress options."
 msgstr ""
 
-#: genesis-shortcode-ui.php:569 genesis-shortcode-ui.php:670
+#: genesis-shortcode-ui.php:615 genesis-shortcode-ui.php:717
 msgid "Relative Depth (date segments)"
 msgstr ""
 
-#: genesis-shortcode-ui.php:578 genesis-shortcode-ui.php:624
-#: genesis-shortcode-ui.php:679 genesis-shortcode-ui.php:725
+#: genesis-shortcode-ui.php:625 genesis-shortcode-ui.php:671
+#: genesis-shortcode-ui.php:727 genesis-shortcode-ui.php:773
 msgid "Label"
 msgstr ""
 
-#: genesis-shortcode-ui.php:584
+#: genesis-shortcode-ui.php:631
 msgid "Text to place before the post date"
 msgstr ""
 
-#: genesis-shortcode-ui.php:593 genesis-shortcode-ui.php:602
+#: genesis-shortcode-ui.php:640 genesis-shortcode-ui.php:649
 msgid "post date"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:611
+#: genesis-shortcode-ui.php:658
 msgid "Post Time"
 msgstr ""
 
-#: genesis-shortcode-ui.php:621
+#: genesis-shortcode-ui.php:668
 msgid ""
 "The format for the time. Defaults to the time format configured in your "
 "WordPress options."
 msgstr ""
 
-#: genesis-shortcode-ui.php:630
+#: genesis-shortcode-ui.php:677
 msgid "Text to place before the post time"
 msgstr ""
 
-#: genesis-shortcode-ui.php:639 genesis-shortcode-ui.php:648
+#: genesis-shortcode-ui.php:686 genesis-shortcode-ui.php:695
 msgid "post time"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:657
+#: genesis-shortcode-ui.php:704
 msgid "Post Last Modified Date"
 msgstr ""
 
-#: genesis-shortcode-ui.php:667
+#: genesis-shortcode-ui.php:714
 msgid ""
 "The format for the last modified date. Defaults to the date format "
 "configured in your WordPress options."
 msgstr ""
 
-#: genesis-shortcode-ui.php:685
+#: genesis-shortcode-ui.php:733
 msgid "Text to place before the post last modified date"
 msgstr ""
 
-#: genesis-shortcode-ui.php:694 genesis-shortcode-ui.php:703
+#: genesis-shortcode-ui.php:742 genesis-shortcode-ui.php:751
 msgid "post last modified date"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:712
+#: genesis-shortcode-ui.php:760
 msgid "Post Last Modified Time"
 msgstr ""
 
-#: genesis-shortcode-ui.php:722
+#: genesis-shortcode-ui.php:770
 msgid ""
 "The format for the last modified time. Defaults to the time format "
 "configured in your WordPress options."
 msgstr ""
 
-#: genesis-shortcode-ui.php:731
+#: genesis-shortcode-ui.php:779
 msgid "Text to place before the post last modified time"
 msgstr ""
 
-#: genesis-shortcode-ui.php:740 genesis-shortcode-ui.php:749
+#: genesis-shortcode-ui.php:788 genesis-shortcode-ui.php:797
 msgid "post last modified time"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:758
+#: genesis-shortcode-ui.php:806
 msgid "Post Author"
 msgstr ""
 
-#: genesis-shortcode-ui.php:768 genesis-shortcode-ui.php:777
-#: genesis-shortcode-ui.php:805
+#: genesis-shortcode-ui.php:816 genesis-shortcode-ui.php:825
+#: genesis-shortcode-ui.php:853
 msgid "post author name"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:786
+#: genesis-shortcode-ui.php:834
 msgid "Post Author Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:796
+#: genesis-shortcode-ui.php:844
 msgid "post author link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:814
+#: genesis-shortcode-ui.php:862
 msgid "Post Author Posts Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:824 genesis-shortcode-ui.php:833
+#: genesis-shortcode-ui.php:872 genesis-shortcode-ui.php:881
 msgid "post author posts link (archive)"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:842
+#: genesis-shortcode-ui.php:890
 msgid "Post Comments"
 msgstr ""
 
-#: genesis-shortcode-ui.php:846
+#: genesis-shortcode-ui.php:894
 msgid "Zero Comments"
 msgstr ""
 
-#: genesis-shortcode-ui.php:850
+#: genesis-shortcode-ui.php:898
 msgid "Leave a Comment"
 msgstr ""
 
-#: genesis-shortcode-ui.php:852
+#: genesis-shortcode-ui.php:900
 msgid "Text to display if zero comments on the post"
 msgstr ""
 
-#: genesis-shortcode-ui.php:856
+#: genesis-shortcode-ui.php:904
 msgid "One Comment"
 msgstr ""
 
-#: genesis-shortcode-ui.php:860
+#: genesis-shortcode-ui.php:908
 msgid "1 Comment"
 msgstr ""
 
-#: genesis-shortcode-ui.php:862
+#: genesis-shortcode-ui.php:910
 msgid "Text to display if one comment on the post"
 msgstr ""
 
-#: genesis-shortcode-ui.php:866
+#: genesis-shortcode-ui.php:914
 msgid "More Comments"
 msgstr ""
 
-#: genesis-shortcode-ui.php:870
+#: genesis-shortcode-ui.php:918
 msgid "% Comments"
 msgstr ""
 
-#: genesis-shortcode-ui.php:872
+#: genesis-shortcode-ui.php:920
 msgid "Text to display if more than one comment on the post"
 msgstr ""
 
-#: genesis-shortcode-ui.php:876
+#: genesis-shortcode-ui.php:924
 msgid "Hide if off"
 msgstr ""
 
-#: genesis-shortcode-ui.php:880
+#: genesis-shortcode-ui.php:928
 msgid "enabled"
 msgstr ""
 
-#: genesis-shortcode-ui.php:881
+#: genesis-shortcode-ui.php:929
 msgid "disabled"
 msgstr ""
 
-#: genesis-shortcode-ui.php:883
+#: genesis-shortcode-ui.php:931
 msgid "Enable the comment link even if comments are off"
 msgstr ""
 
-#: genesis-shortcode-ui.php:893 genesis-shortcode-ui.php:902
+#: genesis-shortcode-ui.php:941 genesis-shortcode-ui.php:950
 msgid "post comment link"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:911
+#: genesis-shortcode-ui.php:959
 msgid "Post Tags"
 msgstr ""
 
-#: genesis-shortcode-ui.php:915 genesis-shortcode-ui.php:953
-#: genesis-shortcode-ui.php:1000
+#: genesis-shortcode-ui.php:963 genesis-shortcode-ui.php:1001
+#: genesis-shortcode-ui.php:1047
 msgid "Separator"
 msgstr ""
 
-#: genesis-shortcode-ui.php:921
+#: genesis-shortcode-ui.php:969
 msgid "Separator between post tags"
 msgstr ""
 
-#: genesis-shortcode-ui.php:929 genesis-shortcode-ui.php:1013
+#: genesis-shortcode-ui.php:977 genesis-shortcode-ui.php:1060
 msgid "Tagged With: "
 msgstr ""
 
-#: genesis-shortcode-ui.php:931 genesis-shortcode-ui.php:940
+#: genesis-shortcode-ui.php:979 genesis-shortcode-ui.php:988
 msgid "tag list"
 msgstr ""
 
-#: genesis-shortcode-ui.php:931
+#: genesis-shortcode-ui.php:979
 msgid "Default \"Tagged With: \""
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:949
+#: genesis-shortcode-ui.php:997
 msgid "Post Categories"
 msgstr ""
 
-#: genesis-shortcode-ui.php:959
+#: genesis-shortcode-ui.php:1007
 msgid "Separator between post categories"
 msgstr ""
 
-#: genesis-shortcode-ui.php:967
+#: genesis-shortcode-ui.php:1015
 msgid "Filed Under: "
 msgstr ""
 
-#: genesis-shortcode-ui.php:969 genesis-shortcode-ui.php:978
+#: genesis-shortcode-ui.php:1017 genesis-shortcode-ui.php:1026
 msgid "post category list"
 msgstr ""
 
-#: genesis-shortcode-ui.php:969 genesis-shortcode-ui.php:1015
+#: genesis-shortcode-ui.php:1017 genesis-shortcode-ui.php:1062
 msgid "Default \"Filed Under: \""
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:987
+#: genesis-shortcode-ui.php:1035
 msgid "Post Terms"
 msgstr ""
 
-#: genesis-shortcode-ui.php:991
+#: genesis-shortcode-ui.php:1039
 msgid "Taxonomy"
 msgstr ""
 
-#: genesis-shortcode-ui.php:997
+#: genesis-shortcode-ui.php:1044
 msgid "Which taxonomy to use. Default \"category\""
 msgstr ""
 
-#: genesis-shortcode-ui.php:1006
+#: genesis-shortcode-ui.php:1053
 msgid "Separator between the terms"
 msgstr ""
 
-#: genesis-shortcode-ui.php:1015 genesis-shortcode-ui.php:1024
+#: genesis-shortcode-ui.php:1062 genesis-shortcode-ui.php:1071
 msgid "post terms list"
 msgstr ""
 
 #. translators: Attribute name (title)
-#: genesis-shortcode-ui.php:1033
+#: genesis-shortcode-ui.php:1080
 msgid "Post Edit"
 msgstr ""
 
-#: genesis-shortcode-ui.php:1037
+#: genesis-shortcode-ui.php:1084
 msgid "Link"
 msgstr ""
 
-#: genesis-shortcode-ui.php:1041
+#: genesis-shortcode-ui.php:1088
 msgid "(Edit)"
 msgstr ""
 
-#: genesis-shortcode-ui.php:1043
+#: genesis-shortcode-ui.php:1090
 msgid "Text for edit link. Default \"(Edit)\""
 msgstr ""
 
-#: genesis-shortcode-ui.php:1052 genesis-shortcode-ui.php:1061
+#: genesis-shortcode-ui.php:1099 genesis-shortcode-ui.php:1108
 msgid "edit post link"
 msgstr ""
 

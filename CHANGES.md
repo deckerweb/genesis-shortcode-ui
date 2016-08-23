@@ -1,3 +1,11 @@
+#### Version 2016-08-23
+
+* Use select dropdown field for all registered, public taxonomies (except for 'post_format') for the "post_terms" Shortcode --> this way a user don't have to know these taxonomies and their names. Just select one and you're done!
+* Add `'step' => '1'` as new meta item to the "relative_depth" attributes.
+* Updated packaged German translations
+* Readme update with corrections, editions and updates :)
+
+
 #### Version 2016-08-22
 
 * Return early if Genesis and Shortcake plugin are not active - both or one of the two.

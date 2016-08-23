@@ -22,6 +22,8 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
 ## Features:
 
 * Visual Shortcode interface - totally simple and easy! :)
+* Big advantage: You don't have to remember the Shortcode attributes names etc.!
+* Mobile! The Shortcake base plugin is very powerful and also works fully on mobile - so just have fun ;-)
 * Developer friendly: customize or extend via filters
 * Fully internationalized and translateable! -- German translations already packaged!
 * Developed with security in mind: proper WordPress coding standards and security functions - escape all the things! :)
@@ -77,7 +79,7 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
  * The Shortcode attributes are inserted properly, including spaces/ whitespace!
  * And, most importantly, the rendering on the frontend of your site will also include space/ whitespace you've entered in the UI!
  * *Note: I might discuss this with the Shortcake team if this could be improved*
-* *Limitation:* Currently, the Shortcake plugin displays no preview Icon or Image for one-line-Shortcodes in the Editor.
+* *Limitation:* Currently, the Shortcake plugin displays no preview Icon or Image for Shortcodes rendered as one line in the Editor.
  * It's only a visual thing: the rendered view is still clickable and editable for the whole line in the Editor! (In the same way as for built-in WordPress Shortcodes like "gallery".)
  * *Note: I might discuss this as well with the Shortcake team if this could be improved*
 * *Limitation:* The "Back to Top" Shortcode from Genesis was left out, intentionally, as it makes no sense to use this old XHTML/ HTML 4 feature any longer!
@@ -87,7 +89,8 @@ Very comfortably enter the 20 Genesis default Shortcodes in the WordPress Editor
 ## Plugin Filters (Developers) - 1) Basics:
 
 * `gsui_filter_genesis_label` --> modify the label "Genesis" to anything you want (presented in the Shortcode overview list)
-* `gsui_filter_genesis_logo` --> modify the image path for the Genesis logo - absolute path is needed!
+* `gsui_filter_genesis_logo_image` --> modify the image path for the Genesis logo - absolute path is needed!
+* `gsui_filter_genesis_logo` --> modify the complete output of image path or Dashicon class for the logo/ icon
 * `gsui_filter_shortcode_ui_args_{shortcode_tag}` --> filter arguments for one Shortcode tag for Shortcode UI (Shortcake plugin)
 * `gsui_filter_genesis_shortcodes_ui_args` --> filter arguments for any/all Shortcodes for Shortcode UI (Shortcake plugin)
 
@@ -138,8 +141,8 @@ $genesis_shortcodes[ 'sp_post_tags' ][ 'listItemImage' ] = ddw_gsui_genesis_logo
 Tips: Use transparent .png with a size of 120x120px - bigger size might be fine, it gets scaled by Shortcake CSS anyway... :)
 
 
-**Where to put these code snippets?**
-* In a custom plugin/ functionality plugin
+**Where to put these filters/ code snippets?**
+* In a custom plugin/ functionality plugin!
 * OR in a snippets manager like ["Code Snippets" plugin](https://wordpress.org/plugins/code-snippets/)
 * OR in your Genesis Child Theme's `functions.php` file or in a other theme specific "functions" file.
 
@@ -163,6 +166,7 @@ Tips: Use transparent .png with a size of 120x120px - bigger size might be fine,
 ## Todo:
 
 * [x] Enhance Readme documentation and code snippets
+* [x] Improve taxonomy selector for 'post_terms' Shortcode
 * [ ] Add screenshots
 
 

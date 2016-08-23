@@ -11,7 +11,7 @@
  * Plugin Name:       Genesis Shortcode UI
  * Plugin URI:        https://github.com/deckerweb/genesis-shortcode-ui
  * Description:       Enhance the default Shortcodes of the Genesis Framework with a Shortcode UI powered by the Shortcake plugin.
- * Version:           2016.08.22
+ * Version:           2016.08.23
  * Author:            David Decker - DECKERWEB
  * Author URI:        http://deckerweb.de/
  * License:           GPL-2.0+
@@ -98,12 +98,10 @@ register_activation_hook( __FILE__, 'ddw_gsui_activation_check' );
  * @since 2016.08.17
  *
  * @uses  load_plugin_textdomain() To load default translations from plugin folder.
- * @uses  ddw_gfpe_plugin_lang_dir() To get filterable path to plugin's languages directory.
+ * @uses  ddw_gsui_plugin_lang_dir() To get filterable path to plugin's languages directory.
  * @uses  get_template_directory() To determine parent theme (Genesis).
  * @uses  deactivate_plugins() In case, deactivate ourself.
  * @uses  wp_die() In case, deactivate ourself, output user message.
- *
- * @param string $gfpe_deactivation_message
  */
 function ddw_gsui_activation_check() {
 
@@ -121,7 +119,7 @@ function ddw_gsui_activation_check() {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 
 		/** Message: no Genesis active */
-		$gfpe_deactivation_message = sprintf(
+		$gsui_deactivation_message = sprintf(
 			__( 'Sorry, you cannot activate the %1$s plugin unless you have installed the latest version of the %2$sGenesis Framework%3$s.', 'genesis-shortcode-ui' ),
 			__( 'Genesis Shortcode UI', 'genesis-shortcode-ui' ),
 			'<a href="http://deckerweb.de/go/genesis/" target="_new"><strong><em>',
@@ -130,9 +128,9 @@ function ddw_gsui_activation_check() {
 
 		/** Deactivation message */
 		wp_die(
-			$gfpe_deactivation_message,
+			$gsui_deactivation_message,
 			__( 'Plugin', 'genesis-shortcode-ui' ) . ': ' . __( 'Genesis Shortcode UI', 'genesis-shortcode-ui' ),
-			array( 'back_link' => true )
+			array( 'back_link' => TRUE )
 		);
 
 	}  // end if Genesis check
@@ -144,7 +142,9 @@ add_action( 'init', 'ddw_gsui_prepare_shortcode_ui' );
 /**
  * If plugin Shortcake is active, load our support for it.
  *
- * @since 2016.08.17
+ * @since  2016.08.17
+ *
+ * @return add_action() Run action for registering Shortcode UI parameters.
  */
 function ddw_gsui_prepare_shortcode_ui() {
 
@@ -173,7 +173,7 @@ function ddw_gsui_prepare_shortcode_ui() {
  *
  * @since  2016.08.18
  *
- * @return string Label for "Genesis"
+ * @return string Label for "Genesis".
  */
 function ddw_gsui_genesis_label() {
 
@@ -188,7 +188,7 @@ function ddw_gsui_genesis_label() {
 
 
 /**
- * Set string/path for Genesis logo for reuse.
+ * Set string/ path for Genesis logo for reuse.
  *
  * @since  2016.08.18
  *
@@ -196,7 +196,7 @@ function ddw_gsui_genesis_label() {
  * @param  string $dashicon Class/ string for a certain Dashicon font icon
  * @param  string $custom_path URL to custom image.
  *
- * @return string String/path of Genesis logo/ icon/ custom image.
+ * @return string String/ path of Genesis logo/ icon/ custom image.
  */
 function ddw_gsui_genesis_logo( $type = 'default', $dashicon = '', $custom_path = '' ) {
 
@@ -208,7 +208,8 @@ function ddw_gsui_genesis_logo( $type = 'default', $dashicon = '', $custom_path 
 
 		$string_genesis_logo = apply_filters(
 			'gsui_filter_genesis_logo_image',
-			'<img src="' . plugins_url( 'genesis-shortcode-ui/images/genesis-logo-' . $type . '.png', dirname( __FILE__ ) ) . '" />'
+			'<img src="' . plugins_url( 'genesis-shortcode-ui/images/genesis-logo-' . $type . '.png', dirname( __FILE__ ) ) . '" />',
+			$type
 		);
 
 	} elseif ( 'dashicon' === $type ) {
@@ -231,14 +232,14 @@ function ddw_gsui_genesis_logo( $type = 'default', $dashicon = '', $custom_path 
 
 
 /**
- * String helper for label "before".
+ * String helper for labels "before" and "after".
  *
  * @since  2016.08.19
  *
  * @param  string $string String of element for Shortcode attribute
  * @param  string $position Position of the string
  *
- * @return string Label for the before string.
+ * @return string Label for the before/ after string.
  */
 function ddw_gsui_string_helper( $string = '', $position = 'before' ) {
 
@@ -270,14 +271,59 @@ function ddw_gsui_string_helper( $string = '', $position = 'before' ) {
 
 
 /**
+ * Gest list of all registered public taxonomies, including built-in.
+ *
+ * @since  2016.08.22
+ *
+ * @uses   get_taxonomies() Core function to get all registered taxonomies.
+ *
+ * @return array Array of taxonomy names & labels.
+ */
+function ddw_gsui_get_registered_taxonomies() {
+
+	/** Set taxonomies args */
+	$args = array(
+	  'public'   => TRUE,
+	  '_builtin' => TRUE,
+	);
+
+	/** Set output type - we want object */
+	$output = 'objects';
+	//$operator = 'and';
+
+	/** Get all taxonomies from Core - with our args */
+	$registered_taxonomies = get_taxonomies( $args, $output );
+
+	/** Setup our output as an array */
+	$public_taxonomies = array();
+
+	/** Loop through all taxonomies (except for 'post_format') and populate the array */
+	foreach ( $registered_taxonomies as $taxonomy ) {
+
+		if ( 'post_format' !== $taxonomy->name ) {
+
+			$public_taxonomies[ $taxonomy->name ] = $taxonomy->labels->name . ' (' . $taxonomy->name . ')';
+
+		}  // end if
+
+	}  // end foreach
+
+	/** Return array of taxonomy names & labels */
+	return $public_taxonomies;
+
+}  // end function
+
+
+/**
  * Array of all supported default Genesis Shortcodes with all parameters
  *  necessary for the Shortcake plugin.
  *
  * @since  2016.08.18
  *
- * @uses   ddw_gsui_genesis_label()
- * @uses   ddw_gsui_genesis_logo()
- * @uses   ddw_gsui_string_helper()
+ * @uses   ddw_gsui_genesis_label() Get Genesis label string.
+ * @uses   ddw_gsui_genesis_logo() Get logo/ icon class/ path.
+ * @uses   ddw_gsui_string_helper() Get reuseable string for "Text/markup" strings for attribute descriptions.
+ * @uses   ddw_gsui_get_registered_taxonomies() Get all registered, public taxonomies as an array.
  *
  * @return array Filterable array of all Shortcode args.
  */
@@ -304,38 +350,38 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Copyright', 'genesis-shortcode-ui' ),
-					'attr'  => 'copyright',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Copyright', 'genesis-shortcode-ui' ),
+					'attr'        => 'copyright',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '©',	// '&#x000A9;'
 					),
 					'description' => esc_html__( 'Copyright symbol', 'genesis-shortcode-ui' ),
 				),
 				array(
 					/* translators: Attribute name (title) */
-					'label' => esc_html__( 'First', 'genesis-shortcode-ui' ),
-					'attr'  => 'first',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'First', 'genesis-shortcode-ui' ),
+					'attr'        => 'first',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => esc_html__( 'Text/markup to place between the copyright symbol and the copyright date', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'copyright', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'copyright', 'genesis-shortcode-ui' ), 'after' ),
@@ -351,19 +397,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '&#x000B7;',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Child Theme link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Child Theme link', 'genesis-shortcode-ui' ), 'after' ),
@@ -379,28 +425,28 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'URL', 'genesis-shortcode-ui' ),
-					'attr'  => 'url',
-					'type'  => 'url',
-					'meta'  => array(
+					'label'       => esc_html__( 'URL', 'genesis-shortcode-ui' ),
+					'attr'        => 'url',
+					'type'        => 'url',
+					'meta'        => array(
 						'placeholder' => 'http://my.studiopress.com/themes/genesis/',
 					),
 					'description' => esc_html__( 'URL for Genesis Framework', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '&#x000B7;',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Genesis Theme link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Genesis Theme link', 'genesis-shortcode-ui' ), 'after' ),
@@ -416,20 +462,20 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						/* translators: Shortcode "StudioPress Link" default value/ placeholder for "before" attribute */
 						'placeholder' => esc_html__( 'by', 'genesis-shortcode-ui' ),
 					),
 					'description' => ddw_gsui_string_helper( __( 'StudioPress link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'StudioPress link', 'genesis-shortcode-ui' ), 'after' ),
@@ -445,19 +491,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'footer' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'WordPress link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'WordPress link', 'genesis-shortcode-ui' ), 'after' ),
@@ -473,19 +519,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'default' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Site Title', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Site Title', 'genesis-shortcode-ui' ), 'after' ),
@@ -501,19 +547,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'default' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Home link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Home link', 'genesis-shortcode-ui' ), 'after' ),
@@ -529,19 +575,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'default' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Log in/ out link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'Log in/ out link', 'genesis-shortcode-ui' ), 'after' ),
@@ -557,46 +603,47 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
-					'attr'  => 'format',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Format', 'genesis-shortcode-ui' ),
+					'attr'        => 'format',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => get_option( 'date_format' ),
 					),
 					'description' => esc_html__( 'The format for the date. Defaults to the date format configured in your WordPress options.', 'genesis-shortcode-ui' ),
 				),
 				array(
 					'label' => esc_html__( 'Relative Depth (date segments)', 'genesis-shortcode-ui' ),
-					'attr'  => 'relative_depth',
-					'type'  => 'number',
-					'meta'  => array(
+					'attr'        => 'relative_depth',
+					'type'        => 'number',
+					'meta'        => array(
 						'placeholder' => 2,
+						'step'        => '1',
 					),
 					'description' => $string_relative_depth,
 				),
 				array(
-					'label' => esc_html__( 'Label', 'genesis-shortcode-ui' ),
-					'attr'  => 'label',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Label', 'genesis-shortcode-ui' ),
+					'attr'        => 'label',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => esc_html__( 'Text to place before the post date', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post date', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post date', 'genesis-shortcode-ui' ), 'after' ),
@@ -612,37 +659,37 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
-					'attr'  => 'format',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Format', 'genesis-shortcode-ui' ),
+					'attr'        => 'format',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => get_option( 'time_format' ),
 					),
 					'description' => esc_html__( 'The format for the time. Defaults to the time format configured in your WordPress options.', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => esc_html__( 'Label', 'genesis-shortcode-ui' ),
-					'attr'  => 'label',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Label', 'genesis-shortcode-ui' ),
+					'attr'        => 'label',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => esc_html__( 'Text to place before the post time', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post time', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post time', 'genesis-shortcode-ui' ), 'after' ),
@@ -658,46 +705,47 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
-					'attr'  => 'format',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Format', 'genesis-shortcode-ui' ),
+					'attr'        => 'format',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => get_option( 'date_format' ),
 					),
 					'description' => esc_html__( 'The format for the last modified date. Defaults to the date format configured in your WordPress options.', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => esc_html__( 'Relative Depth (date segments)', 'genesis-shortcode-ui' ),
-					'attr'  => 'relative_depth',
-					'type'  => 'number',
-					'meta'  => array(
+					'label'       => esc_html__( 'Relative Depth (date segments)', 'genesis-shortcode-ui' ),
+					'attr'        => 'relative_depth',
+					'type'        => 'number',
+					'meta'        => array(
 						'placeholder' => 2,
+						'step'        => '1',
 					),
 					'description' => $string_relative_depth,
 				),
 				array(
-					'label' => esc_html__( 'Label', 'genesis-shortcode-ui' ),
-					'attr'  => 'label',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Label', 'genesis-shortcode-ui' ),
+					'attr'        => 'label',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => esc_html__( 'Text to place before the post last modified date', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post last modified date', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post last modified date', 'genesis-shortcode-ui' ), 'after' ),
@@ -713,37 +761,37 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Format', 'genesis-shortcode-ui' ),
-					'attr'  => 'format',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Format', 'genesis-shortcode-ui' ),
+					'attr'        => 'format',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => get_option( 'time_format' ),
 					),
 					'description' => esc_html__( 'The format for the last modified time. Defaults to the time format configured in your WordPress options.', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => esc_html__( 'Label', 'genesis-shortcode-ui' ),
-					'attr'  => 'label',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Label', 'genesis-shortcode-ui' ),
+					'attr'        => 'label',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => esc_html__( 'Text to place before the post last modified time', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post last modified time', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post last modified time', 'genesis-shortcode-ui' ), 'after' ),
@@ -759,19 +807,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post author name', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post author name', 'genesis-shortcode-ui' ), 'after' ),
@@ -787,19 +835,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post author link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post author name', 'genesis-shortcode-ui' ), 'before' ),
@@ -807,7 +855,7 @@ function ddw_gsui_shortcode_tags() {
 			),
 		),
 
-		/** Post Author Posts Link */
+		/** Post Author Posts Link (Content Archive) */
 		'sp_post_author_posts_link' => array(
 			'tag'           => 'post_author_posts_link',
 			/* translators: Attribute name (title) */
@@ -815,19 +863,19 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post author posts link (archive)', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post author posts link (archive)', 'genesis-shortcode-ui' ), 'after' ),
@@ -843,40 +891,40 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Zero Comments', 'genesis-shortcode-ui' ),
-					'attr'  => 'zero',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Zero Comments', 'genesis-shortcode-ui' ),
+					'attr'        => 'zero',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( 'Leave a Comment', 'genesis-shortcode-ui' ),
 					),
 					'description' => esc_html__( 'Text to display if zero comments on the post', 'genesis-shortcode-ui' ),
 				),
 
 				array(
-					'label' => esc_html__( 'One Comment', 'genesis-shortcode-ui' ),
-					'attr'  => 'one',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'One Comment', 'genesis-shortcode-ui' ),
+					'attr'        => 'one',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( '1 Comment', 'genesis-shortcode-ui' ),
 					),
 					'description' => esc_html__( 'Text to display if one comment on the post', 'genesis-shortcode-ui' ),
 				),
 
 				array(
-					'label' => esc_html__( 'More Comments', 'genesis-shortcode-ui' ),
-					'attr'  => 'more',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'More Comments', 'genesis-shortcode-ui' ),
+					'attr'        => 'more',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( '% Comments', 'genesis-shortcode-ui' ),
 					),
 					'description' => esc_html__( 'Text to display if more than one comment on the post', 'genesis-shortcode-ui' ),
 				),
 
 				array(
-					'label'   => esc_html__( 'Hide if off', 'genesis-shortcode-ui' ),
-					'attr'    => 'hide_if_off',
-					'type'    => 'select',
-					'options' => array(
+					'label'       => esc_html__( 'Hide if off', 'genesis-shortcode-ui' ),
+					'attr'        => 'hide_if_off',
+					'type'        => 'select',
+					'options'     => array(
 						'enabled'  => esc_html__( 'enabled', 'shortcode-item-updated' ),
 						'disabled' => esc_html__( 'disabled', 'shortcode-item-updated' ),
 					),
@@ -884,19 +932,19 @@ function ddw_gsui_shortcode_tags() {
 				),
 
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post comment link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post comment link', 'genesis-shortcode-ui' ), 'after' ),
@@ -912,29 +960,29 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
-					'attr'  => 'sep',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
+					'attr'        => 'sep',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => ', ',
 					),
 					'description' => esc_html__( 'Separator between post tags', 'genesis-shortcode-ui' ),
 				),
 
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( 'Tagged With: ', 'genesis-shortcode-ui' ),
 					),
 					'description' => ddw_gsui_string_helper( __( 'tag list', 'genesis-shortcode-ui' ), 'before' ) . ' ' . esc_html__( 'Default "Tagged With: "', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'tag list', 'genesis-shortcode-ui' ), 'after' ),
@@ -950,29 +998,29 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
-					'attr'  => 'sep',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
+					'attr'        => 'sep',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => ', ',
 					),
 					'description' => esc_html__( 'Separator between post categories', 'genesis-shortcode-ui' ),
 				),
 
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( 'Filed Under: ', 'genesis-shortcode-ui' ),
 					),
 					'description' => ddw_gsui_string_helper( __( 'post category list', 'genesis-shortcode-ui' ), 'before' ) . ' ' . esc_html__( 'Default "Filed Under: "', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post category list', 'genesis-shortcode-ui' ), 'after' ),
@@ -988,37 +1036,36 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Taxonomy', 'genesis-shortcode-ui' ),
-					'attr'  => 'taxonomy',
-					'type'  => 'text',
-					'meta'  => array(
-						'placeholder' => 'category',
-					),
+					'label'       => esc_html__( 'Taxonomy', 'genesis-shortcode-ui' ),
+					'attr'        => 'taxonomy',
+					'type'        => 'select',
+					/** Will get public taxonomies, built-in also; no 'post_format' */
+					'options'     => ddw_gsui_get_registered_taxonomies(),
 					'description' => esc_html__( 'Which taxonomy to use. Default "category"', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
-					'attr'  => 'sep',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Separator', 'genesis-shortcode-ui' ),
+					'attr'        => 'sep',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => ', ',
 					),
 					'description' => esc_html__( 'Separator between the terms', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( 'Tagged With: ', 'genesis-shortcode-ui' ),
 					),
 					'description' => ddw_gsui_string_helper( __( 'post terms list', 'genesis-shortcode-ui' ), 'before' ) . ' ' . esc_html__( 'Default "Filed Under: "', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'post terms list', 'genesis-shortcode-ui' ), 'after' ),
@@ -1034,28 +1081,28 @@ function ddw_gsui_shortcode_tags() {
 			'listItemImage' => ddw_gsui_genesis_logo( 'post' ),
 			'attrs'         => array(
 				array(
-					'label' => esc_html__( 'Link', 'genesis-shortcode-ui' ),
-					'attr'  => 'link',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => esc_html__( 'Link', 'genesis-shortcode-ui' ),
+					'attr'        => 'link',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => esc_html__( '(Edit)', 'genesis-shortcode-ui' ),
 					),
 					'description' => esc_html__( 'Text for edit link. Default "(Edit)"', 'genesis-shortcode-ui' ),
 				),
 				array(
-					'label' => $string_before,
-					'attr'  => 'before',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_before,
+					'attr'        => 'before',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'edit post link', 'genesis-shortcode-ui' ), 'before' ),
 				),
 				array(
-					'label' => $string_after,
-					'attr'  => 'after',
-					'type'  => 'text',
-					'meta'  => array(
+					'label'       => $string_after,
+					'attr'        => 'after',
+					'type'        => 'text',
+					'meta'        => array(
 						'placeholder' => '',
 					),
 					'description' => ddw_gsui_string_helper( __( 'edit post link', 'genesis-shortcode-ui' ), 'after' ),
@@ -1080,8 +1127,8 @@ function ddw_gsui_shortcode_tags() {
  *
  * @since  2016.08.17
  *
- * @uses   ddw_gsui_shortcode_tags()
- * @uses   shortcode_ui_register_for_shortcode()
+ * @uses   ddw_gsui_shortcode_tags() Get all Shortcode tags with their arguments.
+ * @uses   shortcode_ui_register_for_shortcode() Register Shortcode arguments for the UI.
  *
  * @return array Array with Shortcode UI arguments.
  */
