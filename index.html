@@ -50,6 +50,8 @@
 
 <ul>
 <li>Visual Shortcode interface - totally simple and easy! :)</li>
+<li>Big advantage: You don't have to remember the Shortcode attributes names etc.!</li>
+<li>Mobile! The Shortcake base plugin is very powerful and also works fully on mobile - so just have fun ;-)</li>
 <li>Developer friendly: customize or extend via filters</li>
 <li>Fully internationalized and translateable! -- German translations already packaged!</li>
 <li>Developed with security in mind: proper WordPress coding standards and security functions - escape all the things! :)</li>
@@ -132,7 +134,7 @@
 </ul>
 </li>
 <li>
-<em>Limitation:</em> Currently, the Shortcake plugin displays no preview Icon or Image for one-line-Shortcodes in the Editor.
+<em>Limitation:</em> Currently, the Shortcake plugin displays no preview Icon or Image for Shortcodes rendered as one line in the Editor.
 
 <ul>
 <li>It's only a visual thing: the rendered view is still clickable and editable for the whole line in the Editor! (In the same way as for built-in WordPress Shortcodes like "gallery".)</li>
@@ -152,7 +154,9 @@
 <li>
 <code>gsui_filter_genesis_label</code> --&gt; modify the label "Genesis" to anything you want (presented in the Shortcode overview list)</li>
 <li>
-<code>gsui_filter_genesis_logo</code> --&gt; modify the image path for the Genesis logo - absolute path is needed!</li>
+<code>gsui_filter_genesis_logo_image</code> --&gt; modify the image path for the Genesis logo - absolute path is needed!</li>
+<li>
+<code>gsui_filter_genesis_logo</code> --&gt; modify the complete output of image path or Dashicon class for the logo/ icon</li>
 <li>
 <code>gsui_filter_shortcode_ui_args_{shortcode_tag}</code> --&gt; filter arguments for one Shortcode tag for Shortcode UI (Shortcake plugin)</li>
 <li>
@@ -205,10 +209,10 @@
 
 <p>Tips: Use transparent .png with a size of 120x120px - bigger size might be fine, it gets scaled by Shortcake CSS anyway... :)</p>
 
-<p><strong>Where to put these code snippets?</strong></p>
+<p><strong>Where to put these filters/ code snippets?</strong></p>
 
 <ul>
-<li>In a custom plugin/ functionality plugin</li>
+<li>In a custom plugin/ functionality plugin!</li>
 <li>OR in a snippets manager like <a href="https://wordpress.org/plugins/code-snippets/">"Code Snippets" plugin</a>
 </li>
 <li>OR in your Genesis Child Theme's <code>functions.php</code> file or in a other theme specific "functions" file.</li>
@@ -242,6 +246,7 @@
 
 <ul>
 <li>[x] Enhance Readme documentation and code snippets</li>
+<li>[x] Improve taxonomy selector for 'post_terms' Shortcode</li>
 <li>[ ] Add screenshots</li>
 </ul>
 
